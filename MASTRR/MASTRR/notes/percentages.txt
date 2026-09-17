@@ -1,0 +1,7 @@
+A percentage is simply a fraction out of 100. When we say 15%, we mean 15 out of every 100, or 15/100, or 0.15 as a decimal. To find X% of a number N, multiply N by X and divide by 100. For example, 15% of 240 is calculated as (240 * 15) / 100 = 36.
+
+Converting between fractions, decimals, and percentages is a core skill. To turn a fraction into a percentage, divide the numerator by the denominator and multiply by 100. To turn a percentage into a decimal, divide by 100. These conversions come up constantly in aptitude questions, so speed matters more than the method itself.
+
+A common source of errors is percentage increase and decrease. If a value increases by X% and then decreases by X%, the final value is NOT the same as the original. For example, if a price of 100 increases by 20% to 120, and then decreases by 20%, it becomes 120 - (20% of 120) = 120 - 24 = 96, not 100. This asymmetry is a classic trap in placement tests.
+
+Successive percentage changes multiply rather than add. Two successive increases of 10% and 20% do not combine to a 30% increase. Instead, the combined effect is calculated as: Net % change = X + Y + (XY/100). For X=10 and Y=20, this gives 10 + 20 + (10*20/100) = 30 + 2 = 32%. This formula is essential for solving compound scenarios quickly without recalculating step by step.

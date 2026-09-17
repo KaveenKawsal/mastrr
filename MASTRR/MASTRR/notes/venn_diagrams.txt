@@ -1,0 +1,5 @@
+Venn diagrams visually represent relationships (overlap, exclusion, subset) between categories as circles. They're often used alongside syllogisms or with set-theory word problems asking for counts of people or items in overlapping groups.
+
+A common mistake is forgetting to account for the overlapping region when adding up totals from two groups -- the total who like at least one of two things equals (Group 1 + Group 2 - Overlap), not the simple sum.
+
+Drawing the diagram and filling in the overlap region first, before the remaining regions, avoids most counting errors.

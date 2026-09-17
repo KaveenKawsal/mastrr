@@ -1,0 +1,7 @@
+Profit and Loss questions build directly on percentages, which is why a student must master percentages before attempting this topic. Cost Price (CP) is what the seller paid to acquire or produce an item. Selling Price (SP) is what the buyer pays. If SP is greater than CP, there is a profit; if SP is less than CP, there is a loss.
+
+Profit is calculated as SP minus CP, and Profit Percentage is (Profit / CP) * 100. Note that profit percentage is always calculated on the Cost Price, never on the Selling Price, which is a very common mistake. Similarly, Loss Percentage is (Loss / CP) * 100.
+
+A frequently tested variation involves marked price and discount. The Marked Price (MP) is the price displayed before any discount is applied. The Selling Price after a discount of D% is calculated as SP = MP * (1 - D/100). A shopkeeper may mark up the price above the cost price specifically to offer a discount while still making a profit, and questions often ask you to work backward from a given discount and profit percentage to find the original marked price.
+
+When two items are sold at the same price but one at a profit percentage and the other at an equal loss percentage, the seller always incurs a net loss overall, never breaks even. This is a well-known trap in aptitude tests: the percentages appear to cancel out, but because they are calculated on different cost prices, the net result is a loss of (Common % / 10) squared, as a percentage of the total cost price.

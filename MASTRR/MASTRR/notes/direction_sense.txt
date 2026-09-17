@@ -1,0 +1,5 @@
+Direction sense questions track a person's movement (North, South, East, West) and ask for the final direction or distance from the starting point. Sketching a simple compass and marking each turn helps a great deal.
+
+A common mistake is mixing up left and right turns relative to the direction currently faced -- a right turn while facing North means you now face East, not South. Always rotate 90 degrees from your CURRENT facing direction, not from North.
+
+For distance-from-start questions after multiple legs, the Pythagorean theorem is often the fastest way to find the straight-line distance.

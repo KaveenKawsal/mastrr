@@ -1,0 +1,5 @@
+This topic gives a statement of fact and one or more conclusions, asking you to judge whether each conclusion logically follows from the statement alone, using only the information explicitly given.
+
+A common mistake is bringing in outside real-world knowledge not stated in the passage -- you must judge the conclusion using ONLY what's written, even if you personally know the real-world situation might differ.
+
+Reading the statement carefully for absolute words like "all," "only," and "must" is often the key to spotting whether a conclusion truly follows.

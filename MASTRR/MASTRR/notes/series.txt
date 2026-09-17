@@ -1,0 +1,5 @@
+Series questions present a sequence of numbers or letters following a hidden pattern, such as adding a constant, multiplying by a constant, or squares, and ask you to find the next term.
+
+Always check the difference or ratio between consecutive terms first. If that's not constant, check for squares, cubes, or an alternating pattern where odd and even positions follow different rules.
+
+A common mistake is giving up after checking only simple addition -- many series need a second or third hypothesis before the pattern becomes clear.

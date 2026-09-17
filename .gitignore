@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.db
+
+# Node / frontend
+node_modules/
+dist/
+
+# Generated study outputs
+convergence_study_results.csv
+convergence_study_summary.csv
+convergence_study.png
+
+# OS / editor
+.DS_Store
+
+# Claude Code local config
+.claude/settings.local.json

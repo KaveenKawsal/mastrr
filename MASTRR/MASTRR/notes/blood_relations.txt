@@ -1,0 +1,5 @@
+Blood relation questions describe family connections using statements like "A is the son of B" and ask you to determine the relationship between two people. The key skill is drawing a simple family tree diagram as you read each clue.
+
+A common mistake is assuming gender from context without it being explicitly stated -- for example, "A's child" could be a son or daughter unless specified, and wrongly assuming gender leads to wrong answers.
+
+Always label each person on your diagram with their given gender and generation level before working out the final relationship.

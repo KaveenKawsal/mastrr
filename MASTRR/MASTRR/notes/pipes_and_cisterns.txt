@@ -1,0 +1,5 @@
+Pipes & Cisterns problems use the same logic as Time & Work, except an outlet (drain) pipe empties the tank instead of filling it, so its rate is treated as negative when combined with filling pipes.
+
+A common mistake is forgetting to subtract the outlet pipe's rate rather than adding it -- this gives a wrongly fast filling time.
+
+Always identify which pipes are filling and which are draining before setting up the combined rate equation.

@@ -1,0 +1,5 @@
+Data Sufficiency questions give a question along with two statements, and ask you to judge whether each statement, alone or combined, provides ENOUGH information to answer the question -- you are not asked to actually solve for the final numeric answer.
+
+The standard approach is to check Statement 1 alone first, then Statement 2 alone, and only combine them as a last resort if neither works alone. This ordering matters, because combining too early causes you to wrongly judge a statement insufficient when it was actually sufficient by itself.
+
+A common mistake is assuming a statement is sufficient just because it "sounds related" to the question -- if a statement allows two different possible answers, it is NOT sufficient, even if it narrows things down.

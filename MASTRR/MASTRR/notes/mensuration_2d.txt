@@ -1,0 +1,5 @@
+Area formulas: rectangle = length x width, square = side^2, triangle = (1/2) x base x height, circle = pi x r^2. Perimeter formulas: rectangle = 2 x (length + width), square = 4 x side, circle's circumference = 2 x pi x r.
+
+A common mistake is confusing area and perimeter formulas, or using diameter instead of radius in the circle formulas -- always check whether the given value is a radius or a diameter.
+
+Use pi = 22/7 when the radius is a multiple of 7, for clean whole-number answers.

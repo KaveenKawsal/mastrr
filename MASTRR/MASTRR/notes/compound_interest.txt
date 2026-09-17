@@ -1,0 +1,5 @@
+Compound Interest (CI) is interest calculated on the principal plus any interest already earned in previous periods, so the amount grows faster than under simple interest.
+
+For annual compounding, Amount = P x (1 + R/100)^T, and CI = Amount - P. For example, P=1000, R=10%, T=2 years: Amount = 1000x(1.1)^2 = 1210, so CI = 210.
+
+A common mistake is applying the SI formula's linear growth to CI problems. Always calculate the amount for each compounding period explicitly, or use the direct formula, rather than approximating.

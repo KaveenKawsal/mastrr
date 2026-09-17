@@ -1,0 +1,5 @@
+Volume formulas: cube = side^3, cuboid = length x width x height, cylinder = pi x r^2 x height, sphere = (4/3) x pi x r^3. Surface area formulas: cube's total surface area = 6 x side^2, cylinder's curved surface area = 2 x pi x r x height.
+
+A common mistake is mixing up "curved surface area" (just the side) with "total surface area" (side plus top and bottom circles) for cylinders -- always check which one the question asks for.
+
+Volume is measured in cubic units, while surface area is measured in square units -- checking the units of the answer choices can help catch a wrong formula.

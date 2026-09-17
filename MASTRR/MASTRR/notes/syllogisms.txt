@@ -1,0 +1,5 @@
+A syllogism gives two or more statements about categories, like "All A are B" and "All B are C", and asks what conclusion necessarily follows. Drawing simple circles for each category helps check which conclusions must hold in EVERY possible arrangement, not just a likely one.
+
+A common mistake is assuming a conclusion is true because it "sounds reasonable" -- a valid syllogism conclusion must be guaranteed by the premises in all cases, with no exceptions possible.
+
+When two premises use "some," the safest habit is to assume the conclusion does NOT necessarily follow, unless you can prove it holds in every possible diagram.

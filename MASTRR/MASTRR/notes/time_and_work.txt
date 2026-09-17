@@ -1,0 +1,5 @@
+If a person can complete a piece of work in D days, their work rate is 1/D of the work per day. When multiple people work together, their rates simply add up.
+
+A common mistake is adding "days taken" directly instead of adding "rates" -- if A takes 10 days and B takes 15 days, the combined time is NOT the average of 10 and 15; you must add the rates (1/10 + 1/15) and invert the result.
+
+Total work is often treated as one full unit, or as an LCM-based number of "work units" to avoid fractions during calculation.

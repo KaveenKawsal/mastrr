@@ -1,0 +1,5 @@
+A ratio compares two quantities of the same kind, written as a:b. A proportion states that two ratios are equal, written a:b = c:d, which means a x d = b x c (cross-multiplication).
+
+To divide a quantity in a given ratio, add the parts of the ratio to find the total number of shares, then find the value of one share. For example, dividing 500 in the ratio 2:3 means 5 total parts, each part = 100, so the split is 200:300.
+
+A common mistake is confusing "increase in ratio" with "increase in value" -- always compare actual values, not just the ratio numbers, when a question asks about change over time.

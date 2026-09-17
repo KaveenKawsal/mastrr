@@ -1,0 +1,5 @@
+Probability of an event = (Number of favorable outcomes) / (Total number of possible outcomes), always a value between 0 and 1. If two events are independent, the probability of both happening is the product of their individual probabilities.
+
+The probability of an event NOT happening is 1 minus the probability of it happening.
+
+A common mistake is adding the probabilities of two events that can both happen at once (not mutually exclusive) -- in that case you must subtract the overlap.

@@ -1,0 +1,5 @@
+In a partnership, profit is divided among partners in proportion to the product of the capital invested and the time period for which it was invested -- not just the capital amount alone.
+
+If Partner A invests capital Ca for time Ta, and Partner B invests Cb for time Tb, their profit share ratio is (Ca x Ta) : (Cb x Tb). For example, if A invests 1000 for 12 months and B invests 2000 for 6 months, the ratio is 12000:12000 = 1:1.
+
+A common mistake is dividing profit purely by capital ratio while ignoring the time each partner's money was actually invested.

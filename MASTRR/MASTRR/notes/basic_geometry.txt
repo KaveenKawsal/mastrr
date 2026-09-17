@@ -1,0 +1,5 @@
+Key angle facts: the angles in a triangle sum to 180 degrees; the angles around a point sum to 360 degrees; the angles on a straight line sum to 180 degrees. In a triangle, the exterior angle equals the sum of the two non-adjacent interior angles.
+
+A common mistake is assuming a triangle is right-angled or isosceles without it being stated -- never assume a shape's special property unless it is given or provable.
+
+These angle rules are the foundation for the Mensuration topics that follow.

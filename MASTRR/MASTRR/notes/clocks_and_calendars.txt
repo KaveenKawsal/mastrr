@@ -1,0 +1,5 @@
+Clock problems typically ask for the angle between the hour and minute hands at a given time. The minute hand moves 6 degrees per minute; the hour hand moves 0.5 degrees per minute.
+
+The angle between them = |(30 x H) - (5.5 x M)| degrees, where H is the hour and M is the minutes. If the result is over 180, subtract it from 360 to get the smaller angle.
+
+A common mistake is treating the hour hand as stationary within an hour -- it actually moves gradually between hour marks as minutes pass, which is why the 5.5 x M term exists.

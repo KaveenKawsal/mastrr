@@ -1,0 +1,5 @@
+A quadratic equation has the form ax^2 + bx + c = 0. It can be solved by factoring, completing the square, or the quadratic formula: x = (-b +/- sqrt(b^2 - 4ac)) / (2a).
+
+The discriminant (b^2 - 4ac) tells you the nature of the roots: positive means two distinct real roots, zero means one repeated real root, and negative means no real roots.
+
+A common mistake is forgetting the "+/-" in the quadratic formula, which loses one of the two valid solutions.

@@ -1,0 +1,5 @@
+Alligation is a method used to find the ratio in which two ingredients of different values must be mixed to achieve a mixture of a desired average value.
+
+The rule of alligation: Ratio of quantities (cheaper : dearer) = (Value of dearer - Mean value) : (Mean value - Value of cheaper). For example, mixing a 20/kg item with a 30/kg item to get a 24/kg mixture uses ratio (30-24):(24-20) = 6:4 = 3:2 for cheaper:dearer.
+
+A common mistake is reversing the ratio. Always double check by verifying the weighted average of your final ratio actually equals the target mean value.

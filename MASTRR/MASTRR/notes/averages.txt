@@ -1,0 +1,5 @@
+The average (or mean) of a set of numbers is the sum of all values divided by the count of values. Average = (Sum of values) / (Number of values).
+
+If you know the average and the count, you can find the total sum by multiplying them: Sum = Average x Count. This is the key idea used when a new value is added and you need the new average.
+
+A common mistake is applying a simple average when quantities have different "weights" -- that situation needs a weighted average instead, where each value is multiplied by its own weight before summing.

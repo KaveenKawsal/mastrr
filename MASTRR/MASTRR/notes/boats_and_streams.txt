@@ -1,0 +1,5 @@
+In boats & streams, downstream speed = boat speed + stream speed (they aid each other), and upstream speed = boat speed - stream speed (the stream opposes the boat).
+
+If both downstream and upstream speeds are known, the boat's own speed = average of the two, and the stream's speed = half the difference between them.
+
+A common mistake is applying regular time-distance formulas without adjusting for the direction of the current, especially in round-trip problems.

@@ -1,0 +1,5 @@
+A linear equation in one variable has the form ax + b = 0, and its solution is x = -b/a. A system of two equations in two variables can be solved by substitution or elimination.
+
+A common mistake is making sign errors while moving terms across the equals sign -- always check by substituting the found value back into the original equation.
+
+For elimination, add or subtract the two equations in a way that cancels out one of the variables before solving for the other.

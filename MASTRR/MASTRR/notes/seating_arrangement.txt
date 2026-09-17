@@ -1,0 +1,5 @@
+Seating arrangement puzzles place people around a table (linear or circular) based on given clues, and ask you to determine the final order or specific positions.
+
+For circular arrangements, remember that left and right depend on whether people are facing the center or facing outward -- this changes which direction is clockwise from each person's point of view.
+
+A common mistake is not fixing one person's position as a reference point first -- always fix one seat mentally and build the rest of the arrangement relative to it.

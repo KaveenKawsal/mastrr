@@ -1,0 +1,5 @@
+Speed = Distance / Time. Distance = Speed x Time. Time = Distance / Speed. Keeping units consistent matters: to convert km/h to m/s, multiply by 5/18; to convert m/s to km/h, multiply by 18/5.
+
+A common mistake is forgetting unit conversion when mixing km/h and metres/seconds in the same problem.
+
+For a round trip covered at two different speeds over equal distances, the average speed is NOT the simple average of the two speeds -- it is the harmonic mean: Average speed = (2 x S1 x S2) / (S1 + S2).

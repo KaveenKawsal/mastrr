@@ -1,0 +1,5 @@
+Data Interpretation (DI) questions present information as tables, bar graphs, pie charts, or line graphs, and test whether you can extract and calculate values from that data quickly -- it combines percentages, ratios, and averages you already know, rather than testing a new formula.
+
+The key skill in DI is reading the data correctly before calculating -- misreading an axis label or table row is the most common source of wrong answers, not a calculation mistake.
+
+For pie charts, remember the full circle represents 360 degrees or 100%, so a sector's percentage share = (sector's degrees / 360) x 100.

@@ -1,0 +1,5 @@
+Permutations count arrangements where ORDER matters, calculated as nPr = n! / (n-r)!. Combinations count selections where order does NOT matter, calculated as nCr = n! / (r! (n-r)!).
+
+A quick way to decide which to use: if rearranging the same items differently counts as a different outcome, use permutation; if not, use combination.
+
+A common mistake is using permutation when the question describes a selection (like choosing a committee) where order doesn't matter, which overcounts the actual outcomes.

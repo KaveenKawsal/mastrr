@@ -1,0 +1,5 @@
+Coding-Decoding questions test whether you can identify a hidden pattern used to transform letters or words, such as shifting each letter forward or backward by a fixed number of positions in the alphabet, or reversing a word.
+
+Once you identify the rule from a given example, apply the exact same rule to a new word.
+
+A common mistake is assuming the rule applies uniformly without checking it against every letter pair given in the example -- always verify the pattern holds for all letters shown, not just the first one.

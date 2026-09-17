@@ -1,0 +1,5 @@
+An Arithmetic Progression (AP) has a constant difference between consecutive terms; the nth term is a + (n-1)d, and the sum of n terms is (n/2) x (2a + (n-1)d). A Geometric Progression (GP) has a constant ratio between consecutive terms; the nth term is a x r^(n-1).
+
+A common mistake is applying the AP sum formula to a GP sequence or vice versa -- always first check whether the sequence has a constant difference (AP) or constant ratio (GP).
+
+Identifying which type of progression a sequence is should always be the first step, before picking a formula.

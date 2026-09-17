@@ -1,0 +1,5 @@
+Puzzle questions combine multiple types of clues at once (seating, blood relations, ranking, or attributes) into a single multi-step problem. The key strategy is to process the clue that gives the MOST certain information first, rather than reading strictly top to bottom.
+
+A common mistake is trying to hold the entire puzzle in your head instead of drawing a table or grid to track what's confirmed, possible, and ruled out.
+
+Once one position or value is pinned down exactly, use it immediately to eliminate options in the remaining clues, rather than solving all clues independently.

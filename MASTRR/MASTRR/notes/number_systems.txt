@@ -1,0 +1,5 @@
+Number systems cover integers, factors, multiples, LCM (Least Common Multiple) and HCF (Highest Common Factor, also called GCD). The HCF of two numbers is the largest number that divides both exactly; the LCM is the smallest number that both divide into exactly.
+
+A useful identity for exactly two numbers: HCF x LCM = product of the two numbers.
+
+A common mistake is confusing HCF and LCM -- remember HCF is always less than or equal to the smaller number, while LCM is always greater than or equal to the larger number.

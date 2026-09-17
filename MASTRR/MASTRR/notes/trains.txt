@@ -1,0 +1,5 @@
+Train problems are Time & Distance problems where the length of the train itself must be treated as extra distance to cover. Crossing a stationary pole means covering a distance equal to the train's own length; crossing a platform means covering the train's length PLUS the platform's length.
+
+When two trains cross each other, use relative speed: add speeds if moving in opposite directions, subtract if moving in the same direction.
+
+A common mistake is forgetting to add the platform's length when a train "crosses a platform" versus just "crosses a pole" -- these are two different total distances.

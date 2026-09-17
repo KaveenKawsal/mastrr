@@ -1,0 +1,5 @@
+Simplification questions test the order of operations, remembered by the acronym BODMAS (Brackets, Orders/exponents, Division, Multiplication, Addition, Subtraction). Operations at the same priority level, like multiplication and division, are performed left to right.
+
+A common mistake is performing addition or subtraction before multiplication or division just because they appear earlier left-to-right -- always resolve brackets and higher-priority operations first, regardless of position in the expression.
+
+Practicing BODMAS on short expressions builds the speed needed for longer, multi-step calculations elsewhere in the aptitude section.

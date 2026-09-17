@@ -1,0 +1,34 @@
+sub_skill,prerequisite
+Percentages,Number Systems
+Profit & Loss,Percentages
+Simple Interest,Percentages
+Compound Interest,Simple Interest
+Ratio & Proportion,Number Systems
+Averages,Number Systems
+Mixtures & Alligations,Ratio & Proportion
+Mixtures & Alligations,Averages
+Partnership,Ratio & Proportion
+Partnership,Percentages
+Time & Distance,Ratio & Proportion
+Trains,Time & Distance
+Boats & Streams,Time & Distance
+Time & Work,Ratio & Proportion
+Pipes & Cisterns,Time & Work
+Linear Equations,Number Systems
+Quadratic Equations,Linear Equations
+Progressions,Linear Equations
+Basic Geometry,Number Systems
+Mensuration 2D,Basic Geometry
+Mensuration 3D,Mensuration 2D
+Permutation & Combination,Number Systems
+Probability,Permutation & Combination
+Data Interpretation,Percentages
+Data Interpretation,Averages
+Data Interpretation,Ratio & Proportion
+Statement & Conclusions,Syllogisms
+Venn Diagrams,Syllogisms
+Seating Arrangement,Direction Sense
+Seating Arrangement,Blood Relations
+Puzzles,Seating Arrangement
+Data Sufficiency,Percentages
+Data Sufficiency,Syllogisms
