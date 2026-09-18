@@ -14,7 +14,7 @@ so every endpoint below calls the real thing instead of a fake one:
                                                + Sri Somesh's real graph order
     /tutor                                 -> real TF-IDF retrieval over
                                                knowledge/notes/, real LLM call
-                                               if ANTHROPIC_API_KEY is set
+                                               if GROQ_API_KEY is set
     /retest                                -> grades against the real
                                                question bank, closes the loop
     /roadmap/{learner_id}                  -> full graph + per-node status

@@ -493,6 +493,46 @@ button {
   margin: 0 0 14px;
 }
 
+.explanation-text p {
+  margin: 0 0 10px;
+}
+
+.explanation-text p:last-child {
+  margin-bottom: 0;
+}
+
+.explanation-text h2 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--accent-deep);
+  margin: 18px 0 6px;
+}
+
+.explanation-text h2:first-child {
+  margin-top: 0;
+}
+
+.explanation-text ul,
+.explanation-text ol {
+  margin: 0 0 10px;
+  padding-left: 20px;
+}
+
+.explanation-text li {
+  margin-bottom: 4px;
+}
+
+.explanation-text strong {
+  color: var(--accent-deep);
+}
+
+.explanation-text code {
+  background: var(--accent-soft);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 13px;
+}
+
 .chunk-refs {
   font-size: 12px;
   color: var(--ink-soft);

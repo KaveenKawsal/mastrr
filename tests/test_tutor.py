@@ -3,31 +3,35 @@
 Unit tests for tutor.py: the LLM vs. extractive-fallback branching in
 generate_tutoring_explanation().
 
-The Anthropic client is the one thing in this project that's legitimate to
+The Groq client is the one thing in this project that's legitimate to
 mock -- it's a paid external network call, not project logic -- so these
-tests stub anthropic.Anthropic rather than hitting the real API. Everything
+tests stub groq.Groq rather than hitting the real API. Everything
 else (retrieval over the real notes corpus) runs for real, same as the rest
 of the suite.
 """
-import anthropic
+import groq
 
 from backend import tutor
 
 REAL_SUB_SKILL = "Percentages"  # has real notes on disk, so retrieval returns chunks
 
 
-class _FakeTextBlock:
-    def __init__(self, text):
-        self.type = "text"
-        self.text = text
+class _FakeMessage:
+    def __init__(self, content):
+        self.content = content
+
+
+class _FakeChoice:
+    def __init__(self, content):
+        self.message = _FakeMessage(content)
 
 
 class _FakeResponse:
     def __init__(self, text):
-        self.content = [_FakeTextBlock(text)]
+        self.choices = [_FakeChoice(text)]
 
 
-class _FakeMessages:
+class _FakeCompletions:
     def __init__(self, response=None, exc=None):
         self._response = response
         self._exc = exc
@@ -40,13 +44,18 @@ class _FakeMessages:
         return self._response
 
 
-class _FakeAnthropicClient:
+class _FakeChat:
     def __init__(self, response=None, exc=None):
-        self.messages = _FakeMessages(response=response, exc=exc)
+        self.completions = _FakeCompletions(response=response, exc=exc)
+
+
+class _FakeGroqClient:
+    def __init__(self, response=None, exc=None):
+        self.chat = _FakeChat(response=response, exc=exc)
 
 
 def test_falls_back_to_extractive_when_no_api_key(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
     result = tutor.generate_tutoring_explanation(REAL_SUB_SKILL)
 
     assert result["generated_by"] == "extractive_fallback"
@@ -56,23 +65,26 @@ def test_falls_back_to_extractive_when_no_api_key(monkeypatch):
 
 
 def test_uses_llm_when_api_key_present_and_call_succeeds(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-tests")
-    fake_client = _FakeAnthropicClient(response=_FakeResponse("A grounded explanation of percentages."))
-    monkeypatch.setattr(anthropic, "Anthropic", lambda **kwargs: fake_client)
+    monkeypatch.setenv("GROQ_API_KEY", "fake-key-for-tests")
+    fake_client = _FakeGroqClient(response=_FakeResponse("A grounded explanation of percentages."))
+    monkeypatch.setattr(groq, "Groq", lambda **kwargs: fake_client)
 
     result = tutor.generate_tutoring_explanation(REAL_SUB_SKILL)
 
     assert result["generated_by"] == "llm"
     assert result["explanation"] == "A grounded explanation of percentages."
-    assert len(fake_client.messages.calls) == 1
-    # the sub-skill and retrieved notes actually made it into the prompt
-    assert REAL_SUB_SKILL in fake_client.messages.calls[0]["messages"][0]["content"]
+    assert len(fake_client.chat.completions.calls) == 1
+    # the sub-skill and retrieved notes actually made it into the user turn,
+    # and the teaching instructions live in the system turn
+    call = fake_client.chat.completions.calls[0]
+    assert REAL_SUB_SKILL in call["messages"][1]["content"]
+    assert call["messages"][0]["role"] == "system"
 
 
 def test_falls_back_to_extractive_when_llm_call_raises(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-tests")
-    fake_client = _FakeAnthropicClient(exc=RuntimeError("simulated network failure"))
-    monkeypatch.setattr(anthropic, "Anthropic", lambda **kwargs: fake_client)
+    monkeypatch.setenv("GROQ_API_KEY", "fake-key-for-tests")
+    fake_client = _FakeGroqClient(exc=RuntimeError("simulated network failure"))
+    monkeypatch.setattr(groq, "Groq", lambda **kwargs: fake_client)
 
     result = tutor.generate_tutoring_explanation(REAL_SUB_SKILL)
 
@@ -82,9 +94,9 @@ def test_falls_back_to_extractive_when_llm_call_raises(monkeypatch):
 
 
 def test_falls_back_to_extractive_when_llm_returns_empty_text(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-tests")
-    fake_client = _FakeAnthropicClient(response=_FakeResponse(""))
-    monkeypatch.setattr(anthropic, "Anthropic", lambda **kwargs: fake_client)
+    monkeypatch.setenv("GROQ_API_KEY", "fake-key-for-tests")
+    fake_client = _FakeGroqClient(response=_FakeResponse(""))
+    monkeypatch.setattr(groq, "Groq", lambda **kwargs: fake_client)
 
     result = tutor.generate_tutoring_explanation(REAL_SUB_SKILL)
 

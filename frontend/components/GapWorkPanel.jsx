@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { api } from "../api.js";
 
 const STATUS_LABEL = {
@@ -85,7 +86,9 @@ export default function GapWorkPanel({ learnerId, subSkill, status, onStartDiagn
 
         {phase === "tutoring" && (
           <>
-            <p className="explanation-text">{tutoring.explanation}</p>
+            <div className="explanation-text">
+              <ReactMarkdown>{tutoring.explanation}</ReactMarkdown>
+            </div>
             <p className="chunk-refs">
               Source: {tutoring.source_chunks.join(", ")}
               {tutoring.generated_by === "extractive_fallback" ? " (excerpted from notes)" : " (LLM-generated)"}

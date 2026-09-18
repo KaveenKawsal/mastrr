@@ -3,8 +3,9 @@ uvicorn
 pydantic
 networkx
 scikit-learn
-anthropic
 python-multipart
 matplotlib
 pytest
 httpx
+groq
+python-dotenv
