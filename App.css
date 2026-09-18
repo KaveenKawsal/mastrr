@@ -327,6 +327,59 @@ button {
 .roadmap-graph {
   flex: 1;
   position: relative;
+  overflow: hidden;
+  background-color: rgba(245, 242, 235, 0.54);
+  background-image: linear-gradient(rgba(24, 37, 42, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 37, 42, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.map-heading {
+  position: absolute;
+  z-index: 5;
+  top: 24px;
+  left: 28px;
+  right: 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.map-kicker {
+  margin: 0 0 3px;
+  color: var(--coral);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.map-heading h1 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.map-hint {
+  margin: 7px 0 0;
+  padding: 8px 11px;
+  border: 1px solid rgba(174, 187, 184, 0.75);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: rgba(255, 253, 248, 0.82);
+  font-size: 11px;
+}
+
+.map-hint-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 .roadmap-rail {
@@ -473,10 +526,36 @@ button {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
-  color: #fff;
+  color: #fffdf8;
   min-width: 132px;
   text-align: center;
-  box-shadow: 0 5px 12px rgba(24, 37, 42, 0.12);
+  box-shadow: 0 5px 12px rgba(24, 37, 42, 0.14);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.flow-node:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(24, 37, 42, 0.2);
+}
+
+.flow-node.next-node {
+  z-index: 2;
+  border-color: #f5c36b;
+  box-shadow: 0 0 0 4px rgba(245, 195, 107, 0.42), 0 8px 18px rgba(24, 37, 42, 0.2);
+}
+
+.flow-node.next-node::after {
+  content: "NEXT";
+  position: absolute;
+  top: -11px;
+  right: -9px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #5d3e0b;
+  background: #f5c36b;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
 }
 
 .flow-node.selected {
@@ -494,5 +573,8 @@ button {
   .start-notes { gap: 14px; flex-wrap: wrap; margin-top: 42px; }
   .roadmap-screen { display: block; height: auto; min-height: calc(100vh - 64px); }
   .roadmap-graph { height: 52vh; min-height: 360px; }
+  .map-heading { top: 18px; left: 18px; right: 18px; }
+  .map-heading h1 { font-size: 23px; }
+  .map-hint { display: none; }
   .roadmap-rail { width: 100%; border-left: 0; border-top: 1px solid var(--border); }
 }

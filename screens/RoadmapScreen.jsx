@@ -77,18 +77,27 @@ export default function RoadmapScreen({ learnerId, onStartDiagnostic }) {
   const { rfNodes, rfEdges } = useMemo(() => {
     if (!roadmap) return { rfNodes: [], rfEdges: [] };
     const positions = layoutGraph(roadmap.graph.nodes, roadmap.graph.edges);
+    const masteredIds = new Set(
+      roadmap.graph.nodes.filter((node) => node.status === "mastered").map((node) => node.id),
+    );
+    const nextIds = new Set(
+      roadmap.graph.edges
+        .filter((edge) => masteredIds.has(edge.from))
+        .map((edge) => edge.to)
+        .filter((id) => !masteredIds.has(id)),
+    );
     const rfNodes = roadmap.graph.nodes.map((n) => ({
       id: n.id,
       position: positions[n.id] || { x: 0, y: 0 },
       data: { label: n.id },
-      className: `flow-node${n.id === selectedNode ? " selected" : ""}`,
-      style: { background: STATUS_COLOR[n.status] },
+      className: `flow-node${n.id === selectedNode ? " selected" : ""}${nextIds.has(n.id) ? " next-node" : ""}`,
+      style: { background: STATUS_COLOR[n.status], borderColor: n.id === selectedNode ? "#fff" : STATUS_COLOR[n.status] },
     }));
     const rfEdges = roadmap.graph.edges.map((e) => ({
       id: `${e.from}->${e.to}`,
       source: e.from,
       target: e.to,
-      style: { stroke: "var(--border)" },
+      style: { stroke: "#aebbb8", strokeWidth: 1.5 },
     }));
     return { rfNodes, rfEdges };
   }, [roadmap, selectedNode]);
@@ -120,6 +129,13 @@ export default function RoadmapScreen({ learnerId, onStartDiagnostic }) {
   return (
     <div className="roadmap-screen">
       <div className="roadmap-graph">
+        <div className="map-heading">
+          <div>
+            <p className="map-kicker">Your learning map</p>
+            <h1>Prerequisite roadmap</h1>
+          </div>
+          <p className="map-hint"><span className="map-hint-dot" /> Select a topic to see its next move</p>
+        </div>
         <ReactFlow
           nodes={rfNodes}
           edges={rfEdges}
