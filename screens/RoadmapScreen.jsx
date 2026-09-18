@@ -7,11 +7,14 @@ import MasteryOverviewChart from "../components/MasteryOverviewChart.jsx";
 import GapWorkPanel from "../components/GapWorkPanel.jsx";
 
 const STATUS_COLOR = {
-  not_tested: "#9ca3af",
-  mastered: "#2f9e44",
-  gap_in_tutoring: "#e8a33d",
-  gap_unresolved: "#d0503f",
+  not_tested: "#8f9e9d",
+  mastered: "#378a61",
+  gap_in_tutoring: "#d49a42",
+  gap_unresolved: "#c45a4f",
 };
+
+const PATH_COLOR = "#d96c4f";
+const GOAL_COLOR = "#126b69";
 
 const LEGEND = [
   { status: "not_tested", label: "Not tested" },
@@ -116,16 +119,18 @@ export default function RoadmapScreen({ learnerId, onStartDiagnostic }) {
       id: n.id,
       position: positions[n.id] || { x: 0, y: 0 },
       data: { label: n.id },
+      zIndex: n.id === selectedNode ? 4 : selectedPath.pathIds.has(n.id) ? 3 : 1,
       className: `flow-node${n.id === selectedNode ? " selected" : ""}${nextIds.has(n.id) ? " next-node" : ""}${selectedPath.pathIds.has(n.id) ? " prerequisite-node" : ""}${n.id === selectedNode && selectedTopic?.status !== "mastered" ? " goal-node" : ""}`,
-      style: { background: STATUS_COLOR[n.status], borderColor: n.id === selectedNode ? "#fff" : selectedPath.pathIds.has(n.id) ? "#f5c36b" : STATUS_COLOR[n.status] },
+      style: { background: STATUS_COLOR[n.status], borderColor: n.id === selectedNode ? GOAL_COLOR : selectedPath.pathIds.has(n.id) ? PATH_COLOR : STATUS_COLOR[n.status] },
     }));
     const rfEdges = roadmap.graph.edges.map((e) => ({
       id: `${e.from}->${e.to}`,
       source: e.from,
       target: e.to,
+      zIndex: 0,
       className: selectedPath.pathEdges.has(`${e.from}->${e.to}`) ? "prerequisite-edge" : "",
       style: selectedPath.pathEdges.has(`${e.from}->${e.to}`)
-        ? { stroke: "#126b69", strokeWidth: 3 }
+        ? { stroke: PATH_COLOR, strokeWidth: 3 }
         : { stroke: "#aebbb8", strokeWidth: 1.5 },
     }));
     return { rfNodes, rfEdges };
