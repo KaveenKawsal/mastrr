@@ -24,8 +24,14 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <span className="app-wordmark">Mastrr</span>
-        {screen !== "start" && <span className="learner-chip">{learnerId}</span>}
+        <div className="brand-lockup">
+          <span className="brand-mark">M</span>
+          <span className="app-wordmark">Mastrr</span>
+        </div>
+        <div className="header-context">
+          <span className="header-status"><span className="status-pulse" /> Learning workspace</span>
+          {screen !== "start" && <span className="learner-chip">{learnerId}</span>}
+        </div>
       </header>
       <main className="app-main">
         {screen === "start" && (
