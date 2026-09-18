@@ -14,6 +14,9 @@ export default function CurrentFocusCard({ focus, onStartDiagnostic }) {
       <div className="focus-card">
         <p className="focus-skill">{focus.sub_skill}</p>
         <p className="focus-action">{focus.action}</p>
+        <button className="focus-button" onClick={() => onStartDiagnostic(focus.sub_skill)}>
+          Start diagnostic <span aria-hidden="true">↗</span>
+        </button>
       </div>
     </div>
   );
