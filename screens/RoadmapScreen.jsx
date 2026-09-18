@@ -58,6 +58,28 @@ function layoutGraph(nodes, edges) {
   return positions;
 }
 
+function getPrerequisitePath(nodeId, edges) {
+  const incoming = {};
+  edges.forEach((edge) => {
+    (incoming[edge.to] ||= []).push(edge.from);
+  });
+
+  const pathIds = new Set();
+  const pathEdges = new Set();
+  const pending = [nodeId];
+
+  while (pending.length > 0) {
+    const current = pending.pop();
+    (incoming[current] || []).forEach((prerequisite) => {
+      pathIds.add(prerequisite);
+      pathEdges.add(`${prerequisite}->${current}`);
+      pending.push(prerequisite);
+    });
+  }
+
+  return { pathIds, pathEdges };
+}
+
 export default function RoadmapScreen({ learnerId, onStartDiagnostic }) {
   const [roadmap, setRoadmap] = useState(null);
   const [selectedNode, setSelectedNode] = useState(null);
@@ -86,18 +108,25 @@ export default function RoadmapScreen({ learnerId, onStartDiagnostic }) {
         .map((edge) => edge.to)
         .filter((id) => !masteredIds.has(id)),
     );
+    const selectedTopic = roadmap.graph.nodes.find((node) => node.id === selectedNode);
+    const selectedPath = selectedTopic && selectedTopic.status !== "mastered"
+      ? getPrerequisitePath(selectedNode, roadmap.graph.edges)
+      : { pathIds: new Set(), pathEdges: new Set() };
     const rfNodes = roadmap.graph.nodes.map((n) => ({
       id: n.id,
       position: positions[n.id] || { x: 0, y: 0 },
       data: { label: n.id },
-      className: `flow-node${n.id === selectedNode ? " selected" : ""}${nextIds.has(n.id) ? " next-node" : ""}`,
-      style: { background: STATUS_COLOR[n.status], borderColor: n.id === selectedNode ? "#fff" : STATUS_COLOR[n.status] },
+      className: `flow-node${n.id === selectedNode ? " selected" : ""}${nextIds.has(n.id) ? " next-node" : ""}${selectedPath.pathIds.has(n.id) ? " prerequisite-node" : ""}${n.id === selectedNode && selectedTopic?.status !== "mastered" ? " goal-node" : ""}`,
+      style: { background: STATUS_COLOR[n.status], borderColor: n.id === selectedNode ? "#fff" : selectedPath.pathIds.has(n.id) ? "#f5c36b" : STATUS_COLOR[n.status] },
     }));
     const rfEdges = roadmap.graph.edges.map((e) => ({
       id: `${e.from}->${e.to}`,
       source: e.from,
       target: e.to,
-      style: { stroke: "#aebbb8", strokeWidth: 1.5 },
+      className: selectedPath.pathEdges.has(`${e.from}->${e.to}`) ? "prerequisite-edge" : "",
+      style: selectedPath.pathEdges.has(`${e.from}->${e.to}`)
+        ? { stroke: "#126b69", strokeWidth: 3 }
+        : { stroke: "#aebbb8", strokeWidth: 1.5 },
     }));
     return { rfNodes, rfEdges };
   }, [roadmap, selectedNode]);

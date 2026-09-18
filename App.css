@@ -563,6 +563,20 @@ button {
   box-shadow: 0 0 0 3px var(--ink), 0 8px 16px rgba(24, 37, 42, 0.18);
 }
 
+.flow-node.prerequisite-node {
+  z-index: 2;
+  box-shadow: 0 0 0 4px rgba(245, 195, 107, 0.42), 0 8px 18px rgba(24, 37, 42, 0.2);
+}
+
+.flow-node.goal-node {
+  z-index: 3;
+  box-shadow: 0 0 0 4px var(--ink), 0 0 0 7px rgba(18, 107, 105, 0.38), 0 8px 18px rgba(24, 37, 42, 0.24);
+}
+
+.react-flow__edge.prerequisite-edge path {
+  filter: drop-shadow(0 0 2px rgba(18, 107, 105, 0.35));
+}
+
 @media (max-width: 760px) {
   .app-header { padding: 14px 18px; }
   .header-status { display: none; }
