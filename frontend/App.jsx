@@ -24,13 +24,32 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <div className="brand-lockup">
+        <div
+          className="brand-lockup clickable"
+          onClick={() => setScreen("start")}
+          title="Return to Start screen"
+        >
           <span className="brand-mark">M</span>
           <span className="app-wordmark">Mastrr</span>
         </div>
         <div className="header-context">
-          <span className="header-status"><span className="status-pulse" /> Learning workspace</span>
-          {screen !== "start" && <span className="learner-chip">{learnerId}</span>}
+          <span className="header-status">
+            <span className="status-pulse" /> Learning workspace
+          </span>
+          {screen !== "start" && (
+            <div className="header-actions">
+              <span className="learner-chip" title="Current learner session">
+                {learnerId}
+              </span>
+              <button
+                className="header-nav-btn"
+                onClick={() => setScreen("start")}
+                title="Change learner or return to start screen"
+              >
+                ← Change Learner
+              </button>
+            </div>
+          )}
         </div>
       </header>
       <main className="app-main">
