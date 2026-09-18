@@ -14,7 +14,7 @@ const STATUS_COLOR = {
 };
 
 const PATH_COLOR = "#d96c4f";
-const GOAL_COLOR = "#126b69";
+const UNLOCKED_COLOR = "#f5c36b";
 
 const LEGEND = [
   { status: "not_tested", label: "Not tested" },
@@ -119,9 +119,9 @@ export default function RoadmapScreen({ learnerId, onStartDiagnostic }) {
       id: n.id,
       position: positions[n.id] || { x: 0, y: 0 },
       data: { label: n.id },
-      zIndex: n.id === selectedNode ? 4 : selectedPath.pathIds.has(n.id) ? 3 : 1,
-      className: `flow-node${n.id === selectedNode ? " selected" : ""}${nextIds.has(n.id) ? " next-node" : ""}${selectedPath.pathIds.has(n.id) ? " prerequisite-node" : ""}${n.id === selectedNode && selectedTopic?.status !== "mastered" ? " goal-node" : ""}`,
-      style: { background: STATUS_COLOR[n.status], borderColor: n.id === selectedNode ? GOAL_COLOR : selectedPath.pathIds.has(n.id) ? PATH_COLOR : STATUS_COLOR[n.status] },
+      zIndex: n.id === selectedNode ? 4 : 1,
+      className: `flow-node${n.id === selectedNode ? " selected" : ""}${nextIds.has(n.id) ? " next-node" : ""}`,
+      style: { background: nextIds.has(n.id) && n.status !== "mastered" ? UNLOCKED_COLOR : STATUS_COLOR[n.status], borderColor: n.id === selectedNode ? "#fff" : nextIds.has(n.id) ? UNLOCKED_COLOR : STATUS_COLOR[n.status] },
     }));
     const rfEdges = roadmap.graph.edges.map((e) => ({
       id: `${e.from}->${e.to}`,
