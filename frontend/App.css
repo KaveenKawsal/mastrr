@@ -630,3 +630,68 @@ button {
   .map-hint { display: none; }
   .roadmap-rail { width: 100%; border-left: 0; border-top: 1px solid var(--border); }
 }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 37, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  z-index: 50;
+}
+
+.modal-panel {
+  width: 100%;
+  max-width: 720px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(24, 37, 42, 0.28);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal-header h2 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  margin: 0;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.modal-close:hover {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.modal-body {
+  padding: 22px;
+  overflow-y: auto;
+}
+
+@media (max-width: 760px) {
+  .modal-backdrop { padding: 0; }
+  .modal-panel { max-width: none; max-height: 100vh; height: 100%; border-radius: 0; }
+}

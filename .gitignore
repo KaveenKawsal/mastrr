@@ -4,6 +4,9 @@ __pycache__/
 .venv/
 *.db
 
+# Secrets
+.env
+
 # Node / frontend
 node_modules/
 dist/

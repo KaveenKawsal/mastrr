@@ -68,15 +68,24 @@ available in the reference notes.
 
 4. WORKED EXAMPLE
 
-Provide one simple, step-by-step worked example if the
-reference notes contain a suitable example or sufficient
-information to construct one.
+If a "QUESTIONS THIS LEARNER GOT WRONG IN THEIR DIAGNOSTIC" section is
+provided below, build the worked example around one of those questions
+instead of inventing a new one -- walk through it step by step using the
+method from the reference notes, and point out where the learner's own
+answer went wrong. This is real data from this learner's own diagnostic,
+not outside knowledge, so using it does not break the grounding rules;
+only the method/formula you apply to it still has to come from the
+reference notes.
+
+Otherwise, provide one simple, step-by-step worked example if the
+reference notes contain a suitable example or sufficient information to
+construct one.
 
 Do not invent unsupported facts, formulas, or examples.
 
-If the notes do not contain enough information for an
-example, explicitly state that an example cannot be
-provided from the available notes.
+If neither a missed question nor the notes give you enough information
+for an example, explicitly state that an example cannot be provided
+from the available material.
 
 5. COMMON MISTAKES
 
@@ -106,6 +115,21 @@ GROUNDING RULES
   which parts cannot be explained from the available material.
 - Never pretend that information is present in the notes
   when it is not.
+- Exception: questions listed under "QUESTIONS THIS LEARNER GOT WRONG
+  IN THEIR DIAGNOSTIC" are real data from this learner's own diagnostic,
+  not outside knowledge -- you may use them for the worked example.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORMULA FORMATTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The learner's screen renders plain Markdown only -- no LaTeX engine.
+Never use LaTeX syntax of any kind: no \frac{{}}{{}}, \times, \displaystyle,
+\left/\right, \[ \], \( \), or $ $ delimiters. Write every formula as
+plain text using standard characters (×, ÷, /, ^, √) wrapped in a single
+backtick, e.g. `X% of N = (N × X) / 100`. Worked-example steps follow the
+same rule -- plain arithmetic in backticks, e.g. `240 × 15 = 3600` then
+`3600 / 100 = 36`, never LaTeX.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 RESPONSE FORMAT
@@ -145,6 +169,19 @@ def _build_context(top_chunks) -> str:
     return "\n\n".join(f"[{cid}]\n{text}" for cid, text in top_chunks)
 
 
+def _build_missed_questions_block(missed_questions) -> str:
+    if not missed_questions:
+        return ""
+    entries = [
+        f"[{i}] {q['text']}\n"
+        f"Options: {', '.join(q['options'])}\n"
+        f"Learner answered: {q['selected_answer']} (incorrect)\n"
+        f"Correct answer: {q['correct_answer']}"
+        for i, q in enumerate(missed_questions, start=1)
+    ]
+    return "QUESTIONS THIS LEARNER GOT WRONG IN THEIR DIAGNOSTIC:\n" + "\n\n".join(entries)
+
+
 def _extractive_fallback(top_chunks) -> str:
     """No LLM key configured: return the single most relevant chunk verbatim,
     labelled honestly, rather than pretending it was generated."""
@@ -154,8 +191,13 @@ def _extractive_fallback(top_chunks) -> str:
     return text
 
 
-def generate_tutoring_explanation(sub_skill: str, top_k: int = 3) -> dict:
-    """Returns {"explanation": str, "source_chunks": [chunk_id, ...], "generated_by": str}."""
+def generate_tutoring_explanation(sub_skill: str, top_k: int = 3, missed_questions: list = None) -> dict:
+    """Returns {"explanation": str, "source_chunks": [chunk_id, ...], "generated_by": str}.
+
+    missed_questions, when given, is the learner's own wrong answers from their
+    diagnostic (backend.diagnostic_session.get_missed_questions) -- the model is
+    told to build its worked example around one of those instead of inventing
+    one from the reference notes alone."""
     top_chunks = retrieve_top_chunks(
         query=f"Explain the concept of {sub_skill} with common mistakes",
         top_k=top_k,
@@ -176,6 +218,9 @@ def generate_tutoring_explanation(sub_skill: str, top_k: int = 3) -> dict:
 
         client = groq.Groq(api_key=api_key)
         user_prompt = USER_TEMPLATE.format(sub_skill=sub_skill, context=_build_context(top_chunks))
+        missed_block = _build_missed_questions_block(missed_questions)
+        if missed_block:
+            user_prompt += "\n\n" + missed_block
         response = client.chat.completions.create(
             model=DEFAULT_MODEL,
             # The structured, multi-section RESPONSE FORMAT above routinely runs

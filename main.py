@@ -203,7 +203,8 @@ def tutor(body: TutorRequest):
             detail="No gap on record for this learner/sub_skill -- run /gaps first.",
         )
 
-    generated = generate_tutoring_explanation(body.sub_skill)
+    missed_questions = diagnostic_session.get_missed_questions(body.learner_id, body.sub_skill)
+    generated = generate_tutoring_explanation(body.sub_skill, missed_questions=missed_questions)
 
     with get_cursor() as cur:
         cur.execute(

@@ -1,12 +1,19 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { api } from "../api.js";
+import TutoringModal from "./TutoringModal.jsx";
 
 const STATUS_LABEL = {
   not_tested: "Not tested yet",
   mastered: "Mastered",
   gap_in_tutoring: "Gap -- in tutoring",
   gap_unresolved: "Gap -- unresolved",
+};
+
+const MODAL_TITLE = {
+  tutoring: "Tutoring",
+  retest: "Retest",
+  result: "Retest result",
 };
 
 export default function GapWorkPanel({ learnerId, subSkill, status, onStartDiagnostic, onResolved }) {
@@ -16,6 +23,7 @@ export default function GapWorkPanel({ learnerId, subSkill, status, onStartDiagn
   const [answers, setAnswers] = useState({});
   const [retestResult, setRetestResult] = useState(null);
   const [error, setError] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   function fetchTutoring() {
     setLoadingTutoring(true);
@@ -27,6 +35,7 @@ export default function GapWorkPanel({ learnerId, subSkill, status, onStartDiagn
         setRetestQuestions(null);
         setRetestResult(null);
         setAnswers({});
+        setModalOpen(true);
       })
       .catch((e) => setError(e.message))
       .finally(() => setLoadingTutoring(false));
@@ -61,6 +70,8 @@ export default function GapWorkPanel({ learnerId, subSkill, status, onStartDiagn
   else if (status === "mastered") phase = "mastered";
   else if (status === "not_tested") phase = "not_tested";
 
+  const modalPhases = phase === "tutoring" || phase === "retest" || phase === "result";
+
   return (
     <div className="rail-section">
       <p className="rail-heading">Selected topic</p>
@@ -84,58 +95,80 @@ export default function GapWorkPanel({ learnerId, subSkill, status, onStartDiagn
           </button>
         )}
 
-        {phase === "tutoring" && (
+        {modalPhases && (
           <>
-            <div className="explanation-text">
-              <ReactMarkdown>{tutoring.explanation}</ReactMarkdown>
-            </div>
-            <p className="chunk-refs">
-              Source: {tutoring.source_chunks.join(", ")}
-              {tutoring.generated_by === "extractive_fallback" ? " (excerpted from notes)" : " (LLM-generated)"}
+            <p className="empty-state">
+              {phase === "tutoring" && "Tutoring notes are ready."}
+              {phase === "retest" && "Retest in progress."}
+              {phase === "result" &&
+                (retestResult.passed
+                  ? `Passed (${retestResult.n_correct}/${retestResult.n_total}) -- marked mastered.`
+                  : `${retestResult.n_correct}/${retestResult.n_total} -- not quite, try again.`)}
             </p>
-            <button className="primary-button" onClick={fetchRetestQuestions}>
-              Take retest
+            <button className="primary-button" onClick={() => setModalOpen(true)}>
+              {phase === "tutoring" && "Open tutoring"}
+              {phase === "retest" && "Continue retest"}
+              {phase === "result" && "View result"}
             </button>
           </>
-        )}
-
-        {phase === "retest" && (
-          <>
-            {retestQuestions.map((q) => (
-              <div key={q.id} className="retest-question">
-                <p>{q.text}</p>
-                {q.options.map((opt) => (
-                  <label key={opt} className="retest-option">
-                    <input
-                      type="radio"
-                      name={q.id}
-                      value={opt}
-                      checked={answers[q.id] === opt}
-                      onChange={() => setAnswers((prev) => ({ ...prev, [q.id]: opt }))}
-                    />{" "}
-                    {opt}
-                  </label>
-                ))}
-              </div>
-            ))}
-            <button
-              className="primary-button"
-              onClick={submitRetest}
-              disabled={Object.keys(answers).length < retestQuestions.length}
-            >
-              Submit retest
-            </button>
-          </>
-        )}
-
-        {phase === "result" && (
-          <p className="explanation-text">
-            {retestResult.passed
-              ? `Passed (${retestResult.n_correct}/${retestResult.n_total}) -- marked mastered.`
-              : `${retestResult.n_correct}/${retestResult.n_total} -- not quite. Review the notes above and retest again.`}
-          </p>
         )}
       </div>
+
+      {modalPhases && modalOpen && (
+        <TutoringModal title={MODAL_TITLE[phase]} onClose={() => setModalOpen(false)}>
+          {phase === "tutoring" && (
+            <>
+              <div className="explanation-text">
+                <ReactMarkdown>{tutoring.explanation}</ReactMarkdown>
+              </div>
+              <p className="chunk-refs">
+                Source: {tutoring.source_chunks.join(", ")}
+                {tutoring.generated_by === "extractive_fallback" ? " (excerpted from notes)" : " (LLM-generated)"}
+              </p>
+              <button className="primary-button" onClick={fetchRetestQuestions}>
+                Take retest
+              </button>
+            </>
+          )}
+
+          {phase === "retest" && (
+            <>
+              {retestQuestions.map((q) => (
+                <div key={q.id} className="retest-question">
+                  <p>{q.text}</p>
+                  {q.options.map((opt) => (
+                    <label key={opt} className="retest-option">
+                      <input
+                        type="radio"
+                        name={q.id}
+                        value={opt}
+                        checked={answers[q.id] === opt}
+                        onChange={() => setAnswers((prev) => ({ ...prev, [q.id]: opt }))}
+                      />{" "}
+                      {opt}
+                    </label>
+                  ))}
+                </div>
+              ))}
+              <button
+                className="primary-button"
+                onClick={submitRetest}
+                disabled={Object.keys(answers).length < retestQuestions.length}
+              >
+                Submit retest
+              </button>
+            </>
+          )}
+
+          {phase === "result" && (
+            <p className="explanation-text">
+              {retestResult.passed
+                ? `Passed (${retestResult.n_correct}/${retestResult.n_total}) -- marked mastered.`
+                : `${retestResult.n_correct}/${retestResult.n_total} -- not quite. Review the notes above and retest again.`}
+            </p>
+          )}
+        </TutoringModal>
+      )}
     </div>
   );
 }

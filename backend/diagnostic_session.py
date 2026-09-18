@@ -98,7 +98,12 @@ def submit_answer(session_id: str, selected_answer: str) -> dict:
     difficulty = session["difficulty"]
     used_ids = json.loads(session["used_ids"])
     history = json.loads(session["history"])
-    history.append({"difficulty": difficulty, "correct": correct, "question_id": current_q["id"]})
+    history.append({
+        "difficulty": difficulty,
+        "correct": correct,
+        "question_id": current_q["id"],
+        "selected_answer": selected_answer,
+    })
 
     next_difficulty = min(5, difficulty + 1) if correct else max(1, difficulty - 1)
 
@@ -170,3 +175,45 @@ def _score(learner_id: str, sub_skill: str, history: list) -> dict:
         "confidence": confidence,
         "n_attempted": len(history),
     }
+
+
+def get_missed_questions(learner_id: str, sub_skill: str) -> list:
+    """Questions the learner answered incorrectly in their most recent completed
+    diagnostic session for this sub_skill, for the tutor to use as worked examples
+    instead of inventing its own. Newest session wins if they've run the
+    diagnostic more than once (rowid order == insertion order -- session rows
+    are only ever inserted, never replaced)."""
+    with get_cursor() as cur:
+        cur.execute(
+            """SELECT history FROM diagnostic_sessions
+               WHERE learner_id = ? AND sub_skill = ? AND status = 'complete'
+               ORDER BY rowid DESC LIMIT 1""",
+            (learner_id, sub_skill),
+        )
+        session = cur.fetchone()
+    if session is None:
+        return []
+
+    history = json.loads(session["history"])
+    missed = [h for h in history if not h["correct"]]
+    if not missed:
+        return []
+
+    question_ids = [h["question_id"] for h in missed]
+    with get_cursor() as cur:
+        placeholders = ",".join("?" for _ in question_ids)
+        cur.execute(f"SELECT * FROM questions WHERE id IN ({placeholders})", tuple(question_ids))
+        rows_by_id = {r["id"]: r for r in cur.fetchall()}
+
+    out = []
+    for h in missed:
+        row = rows_by_id.get(h["question_id"])
+        if row is None:
+            continue
+        out.append({
+            "text": row["text"],
+            "options": [row["option_a"], row["option_b"], row["option_c"], row["option_d"]],
+            "correct_answer": row["correct_answer"],
+            "selected_answer": h.get("selected_answer"),
+        })
+    return out
