@@ -1,10 +1,19 @@
 # Mastrr -- Track 3
 
 This repo contains the database schema, FastAPI service, question bank, and
-React dashboard for the diagnostic + roadmap flow. The project is now set up
-as a standalone workspace and resolves its data files from the current
-folder layout instead of assuming sibling `diagnostic/` and `knowledge/`
-repositories.
+React dashboard for the diagnostic + roadmap flow.
+
+## Layout
+
+- `main.py`, `index.html`, `main.jsx` -- the two entry points (backend, frontend)
+- `backend/` -- FastAPI domain modules (database, diagnostic session, gaps, RAG retrieval + tutor, seeding)
+- `frontend/` -- React app (`App.jsx`, `screens/`, `components/`, `api.js`)
+- `knowledge/` -- live data the backend reads at runtime: `prerequisites.csv` (the sub-skill graph) and `notes/` (the RAG corpus)
+- `data/` -- the question bank CSVs
+- `reference/` -- historical prototypes (Kaveen's and Sri Somesh's original solo scripts), kept for context, not imported by the running app
+- `scripts/` -- one-off tooling (question generation, the convergence study)
+- `docs/` -- the execution plan
+- `tests/` -- pytest suite, runs against the real app/DB/graph, no mocks
 
 ## Python backend
 
@@ -14,7 +23,8 @@ python -m uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
 The app boots at http://127.0.0.1:8000 and seeds the SQLite database from
-`question_bank.csv` and the graph data under `MASTRR/MASTRR/` on first run.
+`data/question_bank.csv` and the graph data under `knowledge/` on first run.
+To reseed manually: `python -m backend.seed_data`.
 
 ## Frontend
 

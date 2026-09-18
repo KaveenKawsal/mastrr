@@ -15,13 +15,13 @@ flagged.
 Idempotent guard: refuses to run twice (checks the last id per sub-skill
 already exists) so re-running doesn't duplicate rows.
 
-Run with:  python add_reasoning_questions.py
-Then reseed the live DB with:  python seed_data.py
+Run with:  python scripts/add_reasoning_questions.py
+Then reseed the live DB with:  python -m backend.seed_data
 """
 import csv
 from pathlib import Path
 
-QUESTION_BANK_CSV = Path(__file__).parent / "question_bank.csv"
+QUESTION_BANK_CSV = Path(__file__).resolve().parent.parent / "data" / "question_bank.csv"
 
 FIELDNAMES = ["id", "sub_skill", "difficulty", "text",
               "option_a", "option_b", "option_c", "option_d", "correct_answer"]
@@ -382,7 +382,7 @@ def main():
 
     print(f"Appended {len(NEW_ROWS)} questions across "
           f"{len(set(r['sub_skill'] for r in NEW_ROWS))} sub-skills.")
-    print("Now run: python seed_data.py")
+    print("Now run: python -m backend.seed_data")
 
 
 if __name__ == "__main__":

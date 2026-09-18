@@ -14,9 +14,8 @@ import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "MASTRR" / "MASTRR"))
 
-import database  # noqa: E402
+from backend import database  # noqa: E402
 
 
 @pytest.fixture()

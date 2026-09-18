@@ -22,7 +22,7 @@ the rule alive longer than necessary.
 import json
 import uuid
 
-from database import get_cursor, row_to_question_dict
+from .database import get_cursor, row_to_question_dict
 
 MAX_QUESTIONS = 6
 START_DIFFICULTY = 3

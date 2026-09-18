@@ -1,27 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-graph_utils.py -- importable version of Sri Somesh's build_graph.py.
+graph_utils.py -- importable version of Sri Somesh's reference/build_graph.py.
 
-build_graph.py (knowledge/) is a standalone script -- it prints a report
+reference/build_graph.py is a standalone script -- it prints a report
 when run directly, which is exactly what you want at the terminal but
 not what you want every time an API process imports it. This module
 loads the identical graph (same CSV, same standalone-roots list) as a
 plain function the API can call, so Track 2's real graph is the one
 actually powering the dashboard -- Checkpoint 1 in the plan, done.
 
-If the standalone-roots list in build_graph.py ever changes, mirror the
-change here too.
+If the standalone-roots list in reference/build_graph.py ever changes,
+mirror the change here too.
 """
 import csv
 from pathlib import Path
 
 import networkx as nx
 
-_CANDIDATE_CSVS = [
-    Path(__file__).parent / "knowledge" / "prerequisites.csv",
-    Path(__file__).parent / "MASTRR" / "MASTRR" / "prerequisites.csv",
-]
-PREREQ_CSV = next((p for p in _CANDIDATE_CSVS if p.exists()), _CANDIDATE_CSVS[0])
+PREREQ_CSV = Path(__file__).resolve().parent.parent / "knowledge" / "prerequisites.csv"
 STANDALONE_ROOTS = ["Simplification", "Coding-Decoding", "Series", "Clocks & Calendars"]
 
 

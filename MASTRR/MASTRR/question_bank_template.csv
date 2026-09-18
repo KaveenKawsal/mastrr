@@ -1,6 +1,0 @@
-id,sub_skill,difficulty,text,option_a,option_b,option_c,option_d,correct_answer
-pct_001,Percentages,1,What is 10% of 200?,15,20,25,30,20
-pct_002,Percentages,2,What is 15% of 240?,24,32,36,40,36
-pct_003,Percentages,3,A price of 100 increases by 20% and then decreases by 20%. What is the final price?,100,96,104,98,96
-pct_004,Percentages,4,Two successive discounts of 10% and 20% are applied to an item priced at 500. What is the final price?,350,360,370,340,360
-pct_005,Percentages,5,A value increases by 10% and then by 20%. What single percentage increase is this equivalent to?,30%,32%,28%,33%,32%

@@ -31,12 +31,11 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-import diagnostic_session
-import gaps_service
-from database import get_cursor, init_db, is_seeded, loads
-from graph_utils import graph_as_contract, load_graph
-from seed_data import seed_all
-from tutor import generate_tutoring_explanation
+from backend import diagnostic_session, gaps_service
+from backend.database import get_cursor, init_db, is_seeded, loads
+from backend.graph_utils import graph_as_contract, load_graph
+from backend.seed_data import seed_all
+from backend.tutor import generate_tutoring_explanation
 
 app = FastAPI(title="Mastrr API", version="0.1.0")
 
@@ -123,7 +122,7 @@ def questions_batch(ids: str):
         placeholders = ",".join("?" for _ in id_list)
         cur.execute(f"SELECT * FROM questions WHERE id IN ({placeholders})", tuple(id_list))
         rows = {r["id"]: r for r in cur.fetchall()}
-    from database import row_to_question_dict
+    from backend.database import row_to_question_dict
     out = []
     for qid in id_list:
         if qid in rows:

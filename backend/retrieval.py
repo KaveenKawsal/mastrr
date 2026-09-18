@@ -30,11 +30,7 @@ from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-_CANDIDATE_NOTES_DIRS = [
-    Path(__file__).parent / "knowledge" / "notes",
-    Path(__file__).parent / "MASTRR" / "MASTRR" / "notes",
-]
-NOTES_DIR = next((p for p in _CANDIDATE_NOTES_DIRS if p.exists()), _CANDIDATE_NOTES_DIRS[0])
+NOTES_DIR = Path(__file__).resolve().parent.parent / "knowledge" / "notes"
 
 
 def _normalize_tokens(s: str) -> frozenset:

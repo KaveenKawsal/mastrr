@@ -3,10 +3,10 @@
 seed_data.py -- populate mastrr.db from the checked-in source files.
 
 Run directly to (re)seed:
-    python seed_data.py
+    python -m backend.seed_data
 
 Idempotent: clears questions / graph tables and reloads them from disk
-each time, so it's safe to re-run after editing question_bank.csv or
+each time, so it's safe to re-run after editing data/question_bank.csv or
 knowledge/prerequisites.csv. Does NOT touch learner data (mastery
 estimates, gaps, tutoring content, sessions) -- that's real progress,
 not seed data.
@@ -14,10 +14,10 @@ not seed data.
 import csv
 from pathlib import Path
 
-from database import init_db, get_cursor
-from graph_utils import load_graph
+from .database import init_db, get_cursor
+from .graph_utils import load_graph
 
-QUESTION_BANK_CSV = Path(__file__).parent / "question_bank.csv"
+QUESTION_BANK_CSV = Path(__file__).resolve().parent.parent / "data" / "question_bank.csv"
 
 
 def seed_questions(csv_path=QUESTION_BANK_CSV):
@@ -82,7 +82,7 @@ def seed_all(verbose=True):
             print(
                 f"\nNote: {len(short)} sub-skills have fewer than 15 questions "
                 f"(execution plan targets 15-20/sub-skill for ~400-500 total; "
-                f"question_bank.csv currently has {n_questions}). "
+                f"data/question_bank.csv currently has {n_questions}). "
                 f"Diagnostic sessions still work -- run_staircase logic already "
                 f"falls back to nearby difficulties -- but each sub-skill will "
                 f"run out of fresh questions sooner and repeat sessions may reuse items."

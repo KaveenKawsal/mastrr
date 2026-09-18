@@ -2,6 +2,13 @@
 """
 Diagnostic engine (Kaveen's track, being built solo for now).
 
+Historical reference only: this is the original simulated-learner
+prototype. The live app uses backend/diagnostic_session.py, which
+reimplements the same staircase rule as a two-step, DB-backed session
+answered by a real learner instead of a simulated one. detect_gaps()
+has since moved to backend/gaps_service.py, where it's an actual live
+dependency rather than a prototype.
+
 Implements a simple rule-based adaptive staircase test:
   - start at difficulty 3
   - correct answer -> next question one level harder
@@ -98,19 +105,6 @@ def run_staircase_test(bank, sub_skill, true_ability, learner_id, max_questions=
     }, history
 
 
-def detect_gaps(mastery_estimates, threshold=0.5):
-    gaps = []
-    for m in mastery_estimates:
-        if m["score"] < threshold:
-            gaps.append({
-                "learner_id": m["learner_id"],
-                "sub_skill": m["sub_skill"],
-                "score": m["score"],
-                "priority_rank": None  # filled in later by the graph's topological order
-            })
-    return gaps
-
-
 if __name__ == "__main__":
     bank = load_question_bank()
     print(f"Loaded question bank: {len(bank)} sub-skills\n")
@@ -125,17 +119,9 @@ if __name__ == "__main__":
     }
 
     print("Running the staircase test per sub-skill:\n")
-    estimates = []
     for sub_skill, ability in true_abilities.items():
         estimate, history = run_staircase_test(bank, sub_skill, ability, learner_id="student_042")
-        estimates.append(estimate)
         diffs = [h["difficulty"] for h in history]
         marks = ["Y" if h["correct"] else "N" for h in history]
         print(f"  {sub_skill:20s} true_ability={ability}  difficulty path={diffs}  correct={marks}")
         print(f"    -> MasteryEstimate: {estimate}")
-    print()
-
-    gaps = detect_gaps(estimates, threshold=0.5)
-    print(f"Gaps detected (score < 0.5): {len(gaps)}")
-    for g in gaps:
-        print(f"  {g}")

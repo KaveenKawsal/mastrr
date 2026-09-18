@@ -32,7 +32,7 @@ Output
     (1) histogram of "questions needed to converge" across all learners
     (2) cumulative % of learners converged by question number
 
-Run with:  python convergence_study.py
+Run with:  python scripts/convergence_study.py
 """
 import csv
 import random
@@ -43,10 +43,11 @@ import matplotlib
 matplotlib.use("Agg")  # headless -- just save the PNG, don't try to open a window
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, str(Path(__file__).parent / "MASTRR" / "MASTRR"))
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "reference"))
 from diagnostic_engine import simulate_answer  # noqa: E402  (reuse the exact same fake-student model)
 
-QUESTION_BANK_CSV = Path(__file__).parent / "question_bank.csv"
+QUESTION_BANK_CSV = ROOT / "data" / "question_bank.csv"
 MAX_QUESTIONS = 6          # must match diagnostic_session.MAX_QUESTIONS
 START_DIFFICULTY = 3       # must match diagnostic_session.START_DIFFICULTY
 N_LEARNERS_PER_SUBSKILL = 100
@@ -142,14 +143,14 @@ def main():
             results.append(run_one_learner(bank, sub_skill, true_ability, learner_id))
 
     # ---- per-learner CSV -----------------------------------------------
-    results_csv = Path(__file__).parent / "convergence_study_results.csv"
+    results_csv = ROOT / "convergence_study_results.csv"
     with open(results_csv, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(results[0].keys()))
         writer.writeheader()
         writer.writerows(results)
 
     # ---- per-sub-skill summary CSV --------------------------------------
-    summary_csv = Path(__file__).parent / "convergence_study_summary.csv"
+    summary_csv = ROOT / "convergence_study_summary.csv"
     with open(summary_csv, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([
@@ -207,7 +208,7 @@ def main():
         fontsize=11,
     )
     fig.tight_layout(rect=[0, 0, 1, 0.94])
-    chart_path = Path(__file__).parent / "convergence_study.png"
+    chart_path = ROOT / "convergence_study.png"
     fig.savefig(chart_path, dpi=150)
     print(f"Wrote {chart_path.name}")
 

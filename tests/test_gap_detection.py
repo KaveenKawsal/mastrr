@@ -2,7 +2,7 @@
 """
 Focused tests for the gap-detection algorithm itself:
 
-  - diagnostic_engine.detect_gaps()       thresholding
+  - gaps_service.detect_gaps()            thresholding
   - graph_utils.topological_fix_order()   prerequisite ordering
   - gaps_service.recompute_gaps()         the two combined + persisted, incl.
                                            the detected/in_tutoring/resolved
@@ -15,10 +15,10 @@ from datetime import datetime, timezone
 
 import networkx as nx
 
-from diagnostic_engine import detect_gaps
-from graph_utils import load_graph, topological_fix_order
-import gaps_service
-from database import get_cursor
+from backend.graph_utils import load_graph, topological_fix_order
+from backend import gaps_service
+from backend.gaps_service import detect_gaps
+from backend.database import get_cursor
 
 
 def _now():
@@ -63,7 +63,7 @@ def test_detect_gaps_empty_when_all_mastered():
 # ---------------------------------------------------------------------------
 def test_topological_fix_order_respects_known_prerequisite_edge(test_db):
     # real graph: "Percentages" is a prerequisite of "Profit & Loss" (see
-    # MASTRR/MASTRR/prerequisites.csv). If a learner is weak in both, the
+    # knowledge/prerequisites.csv). If a learner is weak in both, the
     # fix order must put the prerequisite first.
     G = load_graph()
     assert G.has_edge("Percentages", "Profit & Loss")

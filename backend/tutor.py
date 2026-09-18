@@ -15,7 +15,7 @@ Set MASTRR_LLM_MODEL to override the default model string.
 """
 import os
 
-from retrieval import retrieve_top_chunks
+from .retrieval import retrieve_top_chunks
 
 DEFAULT_MODEL = os.environ.get("MASTRR_LLM_MODEL", "claude-haiku-4-5-20251001")
 

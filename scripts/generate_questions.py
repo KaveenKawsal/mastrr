@@ -15,8 +15,8 @@ than a missing one. Coding-Decoding gets a generator (fixed-shift letter
 ciphers are unambiguous); the rest of that group stays at 5 questions,
 flagged in seed_data.py's output, as real remaining work for the team.
 
-Run directly to append the generated rows to question_bank.csv:
-    python generate_questions.py
+Run directly to append the generated rows to data/question_bank.csv:
+    python scripts/generate_questions.py
 Idempotent-ish: re-running appends a NEW batch with a different seed offset
 unless you first revert question_bank.csv -- it does not deduplicate.
 """
@@ -25,7 +25,7 @@ import math
 import random
 from pathlib import Path
 
-QUESTION_BANK_CSV = Path(__file__).parent / "question_bank.csv"
+QUESTION_BANK_CSV = Path(__file__).resolve().parent.parent / "data" / "question_bank.csv"
 QUESTIONS_PER_NEW_DIFFICULTY = 2  # x5 difficulties = 10 new questions/topic
 
 

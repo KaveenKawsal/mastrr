@@ -1,29 +1,35 @@
 # -*- coding: utf-8 -*-
 """
 gaps_service.py -- turns stored MasteryEstimates into ordered, persisted
-Gap rows, using the two teammates' REAL modules (not mocks):
+Gap rows.
 
-  - diagnostic_engine.detect_gaps()      (Track 1, Kaveen)
-  - graph_utils.topological_fix_order()  (Track 2, Sri Somesh's graph)
+detect_gaps() started life in Kaveen's reference/diagnostic_engine.py
+(Track 1) but is a genuine live dependency, not just a prototype, so it
+lives here now instead of being imported out of the historical-reference
+copy. topological_fix_order() is Sri Somesh's real graph (Track 2).
 
 A gap's `status` tracks where it is in the remediation loop:
   detected -> in_tutoring -> resolved
 and can drop back to `detected` if a learner's mastery regresses below
 threshold again after being marked resolved.
 """
-import sys
-from pathlib import Path
+from .database import get_cursor
+from .graph_utils import load_graph, topological_fix_order
 
-try:
-    from diagnostic_engine import detect_gaps  # noqa: E402  (Track 1's real function)
-except ModuleNotFoundError:
-    sys.path.insert(0, str(Path(__file__).parent / "MASTRR" / "MASTRR"))
-    from diagnostic_engine import detect_gaps  # noqa: E402
+THRESHOLD = 0.5  # mirrors detect_gaps's own default
 
-from database import get_cursor  # noqa: E402
-from graph_utils import load_graph, topological_fix_order  # noqa: E402
 
-THRESHOLD = 0.5  # mirrors diagnostic_engine.detect_gaps's own default
+def detect_gaps(mastery_estimates, threshold=THRESHOLD):
+    gaps = []
+    for m in mastery_estimates:
+        if m["score"] < threshold:
+            gaps.append({
+                "learner_id": m["learner_id"],
+                "sub_skill": m["sub_skill"],
+                "score": m["score"],
+                "priority_rank": None,  # filled in below by the graph's topological order
+            })
+    return gaps
 
 
 def recompute_gaps(learner_id: str) -> list:
