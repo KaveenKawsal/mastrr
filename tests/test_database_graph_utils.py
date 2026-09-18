@@ -6,9 +6,9 @@ covered elsewhere in this suite.
 """
 import csv
 
-import database
-import graph_utils
-from database import get_cursor
+from backend import database
+from backend import graph_utils
+from backend.database import get_cursor
 
 
 def test_is_seeded_reflects_whether_questions_table_has_rows(test_db):

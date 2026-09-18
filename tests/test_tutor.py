@@ -11,7 +11,7 @@ of the suite.
 """
 import anthropic
 
-import tutor
+from backend import tutor
 
 REAL_SUB_SKILL = "Percentages"  # has real notes on disk, so retrieval returns chunks
 

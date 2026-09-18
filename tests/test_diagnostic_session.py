@@ -12,8 +12,8 @@ to exist at each level.
 """
 import pytest
 
-import diagnostic_session
-from database import get_cursor
+from backend import diagnostic_session
+from backend.database import get_cursor
 
 
 def _seed_subskill(sub_skill, difficulties=(1, 2, 3, 4, 5), n_per_difficulty=5, correct="option_a"):

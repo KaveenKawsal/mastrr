@@ -6,7 +6,7 @@ every notes file let an unrelated topic's chunk outrank the actual target
 topic whenever it happened to repeat query words more). These tests run
 against the real notes corpus on disk, not a mocked one.
 """
-import retrieval
+from backend import retrieval
 
 
 def test_scopes_results_to_the_target_subskills_own_notes_file_when_it_has_enough():
