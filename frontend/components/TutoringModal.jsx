@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 export default function TutoringModal({ title, onClose, children }) {
   useEffect(() => {
@@ -9,7 +10,7 @@ export default function TutoringModal({ title, onClose, children }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
-  return (
+  const modalContent = (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-panel" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
         <div className="modal-header">
@@ -22,4 +23,7 @@ export default function TutoringModal({ title, onClose, children }) {
       </div>
     </div>
   );
+
+  return typeof document !== "undefined" ? createPortal(modalContent, document.body) : modalContent;
 }
+
